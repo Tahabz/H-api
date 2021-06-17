@@ -10,6 +10,5 @@ const connect = () => mongoose
 		useFindAndModify: false,
 })
 .then(() => console.log("Mongo successfully connected"))
-.catch((err) => console.error(err));
 
 module.exports = connect;
