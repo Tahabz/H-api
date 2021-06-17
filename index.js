@@ -1,13 +1,26 @@
-const express = require('express');
-const morgan = require('morgan');
-const app = express();
-const port = 4000;
+const express = require("express");
+const morgan = require("morgan");
+const connect = require("./db/connect");
 
-app.use(morgan('dev'));
+require('dotenv').config();
+const app = express();
+
+
+app.use(morgan("dev"));
 app.get('/', (req, res) => {
 	res.send("hello world");
+
 })
 
-app.listen(4000, () => {
-	console.log("Server started at port", port);
-});
+const start = async () => {
+	try {
+		await connect();
+		app.listen(process.env.PORT, () => {
+			console.log("Server started at port", process.env.PORT);
+		});
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+start();
